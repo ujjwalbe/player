@@ -74,20 +74,15 @@ class _AlbumDetailsState extends State<AlbumDetails> {
                         trailing: Text(
                             ((int.parse(songLists[index].duration) / 1000) / 60)
                                 .toStringAsFixed(2)),
-                        leading: songLists[index].albumArtwork == null
-                            ? Icon(
-                                Icons.album,
-                                color: Colors.red,
-                                size: 45,
-                              )
-                            : Container(
+                        leading: 
+                             Container(
                                 width: 60,
                                 height: 60,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.0),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: FileImage(
+                                    image: songLists[index].albumArtwork == null ? AssetImage('assets/images/album_art.jpg') : FileImage(
                                         File(songLists[index].albumArtwork)),
                                   ),
                                 ),
