@@ -56,7 +56,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           children: <Widget>[
             PlayerHome(),
             NowPlaying(),
-            SimpleExample(),
+            PlaylistPage(),
             Container(
               color: Colors.blue,
             ),
