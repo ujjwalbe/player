@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:player/constants.dart';
+import 'package:player/utils/constants.dart';
 
 class AlbumCard extends StatelessWidget {
   final String albumArt;

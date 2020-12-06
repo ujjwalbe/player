@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:audio_session/audio_session.dart';
-import 'package:player/constants.dart';
-import 'package:player/widgets/mini_player.dart';
+import 'package:player/screens/player_backdrop.dart';
+
 
 class NowPlaying extends StatefulWidget {
   @override
@@ -62,7 +61,7 @@ class _NowPlayingState extends State<NowPlaying> {
     return Scaffold(
       // bottomNavigationBar: BottomNavigationBar(
       //   backgroundColor: kPrimaryColor,
-      
+
       //   items: [
       //     BottomNavigationBarItem(
       //         icon: Icon(
@@ -91,120 +90,96 @@ class _NowPlayingState extends State<NowPlaying> {
       //   ],
       // ),
       body: SafeArea(
-          child: Container(
-        child: Stack(children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: _size.height * 0.75,
-              child: FutureBuilder(
-                future: audioQuery.getSongs(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    songLists = snapshot.data;
-                    return ListView.builder(
-                        itemCount: songLists.length,
-                        itemBuilder: (context, index) {
-                          print(songLists[index].albumArtwork);
-                          return Container(
-                            padding: EdgeInsets.only(top: 5, bottom: 5),
-                            child: ListTile(
-                              isThreeLine: true,
-                              trailing: Text(
-                                  ((int.parse(songLists[index].duration) /
-                                              1000) /
-                                          60)
-                                      .toStringAsFixed(2)),
-                              leading: 
-                                  Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: songLists[index].albumArtwork == null? AssetImage('assets/images/album_art.jpg') : FileImage(File(
-                                              songLists[index].albumArtwork)),
-                                        ),
-                                      ),
-                                    ),
-                              subtitle: Text(songLists[index].artist),
-                              onTap: () {
-                                setState(() {
-                                  playButtonIcon = Icons.pause;
-                                  track = index;
-                                  songName = songLists[index].displayName;
-                                  player.setFilePath(songLists[index].filePath);
-                                  player.play();
-                                });
-                              },
-                              title: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Text(songLists[index].displayName)),
-                            ),
-                          );
-                        });
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 200,
-              ),
-              SizedBox(
-                height: 100.0,
-              )
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: _size.height * 0.11,
-              child: FutureBuilder(
-                future: audioQuery.getSongs(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return MiniPlayer(
-              playPress: () async {
-              if (player.playerState.playing) {
-                player.pause();
-                isPlaying = false;
-              } else {
-                isPlaying = true;
-                player.play();
-              }
-              await player
-                  .setFilePath(songLists[track].filePath);
-              setState(() {
-                playCheck();
-                songName = songLists[track].displayName;
-              });
-                      },
-              onPress: () {},
-              playIcon: playButtonIcon,
-              albumArt: songLists[track].albumArtwork,
-              artistName: songLists[track].artist,
-              albumName: songLists[track].album,
-              currentPosition: Duration(seconds: 10),
-              songDuration: Duration(seconds: 10),
-              songName: songLists[track].displayName);
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            ),
-          ),
-        ]),
-      )),
+        child: PlayerWithBackdrop(
+          artistName: "Pritam, KK",
+          isPlaying: true,
+          currentSongName: "Aur Tanha",
+        ),
+        // child: Container(
+        //   child: Stack(children: [
+        //     Align(
+        //       alignment: Alignment.topCenter,
+        //       child: Container(
+        //         height: _size.height * 0.75,
+        //         child: FutureBuilder(
+        //           future: audioQuery.getSongs(),
+        //           builder: (context, snapshot) {
+        //             if (snapshot.hasData) {
+        //               songLists = snapshot.data;
+        //               return ListView.builder(
+        //                   //gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
+        //                   scrollDirection: Axis.horizontal,
+        //                   itemCount: songLists.length,
+        //                   itemBuilder: (context, index) {
+        //                     print(songLists[index].albumArtwork);
+        //                     return SongCard(
+        //                         albumArt: songLists[index].albumArtwork,
+        //                         //songTitle: songLists[index].displayName,
+        //                         favorite: true,
+        //                         onPress: () {},
+        //                         onPlay: () {});
+        //                   });
+        //             } else {
+        //               return Center(child: CircularProgressIndicator());
+        //             }
+        //           },
+        //         ),
+        //       ),
+        //     ),
+        //     Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         SizedBox(
+        //           height: 200,
+        //         ),
+        //         SizedBox(
+        //           height: 100.0,
+        //         )
+        //       ],
+        //     ),
+        //     Align(
+        //       alignment: Alignment.bottomCenter,
+        //       child: Container(
+        //         height: _size.height * 0.11,
+        //         child: FutureBuilder(
+        //           future: audioQuery.getSongs(),
+        //           builder: (context, snapshot) {
+        //             if (snapshot.hasData) {
+        //               return MiniPlayer(
+        //                   playPress: () async {
+        //                     if (player.playerState.playing) {
+        //                       player.pause();
+        //                       isPlaying = false;
+        //                     } else {
+        //                       isPlaying = true;
+        //                       player.play();
+        //                     }
+        //                     await player.setFilePath(songLists[track].filePath);
+        //                     setState(() {
+        //                       playCheck();
+        //                       songName = songLists[track].displayName;
+        //                     });
+        //                   },
+        //                   onPress: () {},
+        //                   playIcon: playButtonIcon,
+        //                   albumArt: songLists[track].albumArtwork,
+        //                   artistName: songLists[track].artist,
+        //                   albumName: songLists[track].album,
+        //                   currentPosition: Duration(seconds: 10),
+        //                   songDuration: Duration(seconds: 10),
+        //                   songName: songLists[track].displayName);
+        //             } else {
+        //               return Center(
+        //                 child: CircularProgressIndicator(),
+        //               );
+        //             }
+        //           },
+        //         ),
+        //       ),
+        //     ),
+        //   ]),
+        // ),
+      ),
     );
   }
 }
@@ -309,3 +284,4 @@ _showSliderDialog({
     ),
   );
 }
+

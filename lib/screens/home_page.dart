@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:player/constants.dart';
+import 'package:player/utils/constants.dart';
 import 'package:player/screens/album_details.dart';
 import 'package:player/widgets/album_card.dart';
 import 'package:player/widgets/mini_player.dart';
@@ -319,47 +319,3 @@ _showSliderDialog({
     ),
   );
 }
-
-// Container(
-//                                 padding: EdgeInsets.only(top: 5, bottom: 5),
-//                                 child: ListTile(
-//                                   isThreeLine: true,
-//                                   trailing: Text(
-//                                       ((int.parse(songLists[index].duration) /
-//                                                   1000) /
-//                                               60)
-//                                           .toStringAsFixed(2)),
-//                                   leading: songLists[index].albumArtwork == null
-//                                       ? Icon(
-//                                           Icons.album,
-//                                           color: Colors.red,
-//                                           size: 45,
-//                                         )
-//                                       : Container(
-//                                           width: 60,
-//                                           height: 60,
-//                                           decoration: BoxDecoration(
-//                                             image: DecorationImage(
-//                                               image: FileImage(File(
-//                                                   songLists[index]
-//                                                       .albumArtwork)),
-//                                             ),
-//                                           ),
-//                                         ),
-//                                   subtitle: Text(songLists[index].artist),
-//                                   onTap: () {
-//                                     setState(() {
-//                                       playButtonIcon = Icons.pause;
-//                                       track = index;
-//                                       songName = songLists[index].displayName;
-//                                       player.setFilePath(
-//                                           songLists[index].filePath);
-//                                       player.play();
-//                                     });
-//                                   },
-//                                   title: SingleChildScrollView(
-//                                       scrollDirection: Axis.horizontal,
-//                                       child:
-//                                           Text(songLists[index].displayName)),
-//                                 ),
-//                               );

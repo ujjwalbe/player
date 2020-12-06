@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:player/constants.dart';
+import 'package:player/utils/constants.dart';
 import 'package:player/screens/home_page.dart';
 import 'package:player/screens/now_playing.dart';
+import 'package:player/screens/playlist_page.dart';
 
 class MainScaffold extends StatefulWidget {
   @override
@@ -55,9 +56,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           children: <Widget>[
             PlayerHome(),
             NowPlaying(),
-            Container(
-              color: Colors.green,
-            ),
+            SimpleExample(),
             Container(
               color: Colors.blue,
             ),

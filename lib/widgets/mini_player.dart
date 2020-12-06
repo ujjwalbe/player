@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-import 'package:player/constants.dart';
+import 'package:player/utils/constants.dart';
 
 class MiniPlayer extends StatefulWidget {
   final VoidCallback playPress;
