@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:player/screens/stream_ex.dart';
 import 'package:player/utils/constants.dart';
 import 'package:player/screens/home_page.dart';
 import 'package:player/screens/now_playing.dart';
 import 'package:player/screens/playlist_page.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 class MainScaffold extends StatefulWidget {
   @override
@@ -11,6 +15,10 @@ class MainScaffold extends StatefulWidget {
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
+  Directory dir = Directory('/storage/emulated/0/');
+  List<FileSystemEntity> _files;
+  List<FileSystemEntity> _songs = [];
+
   int _currentIndex = 0;
   PageController _pageController;
   String appBarTitle = "Play Music";
@@ -21,6 +29,18 @@ class _MainScaffoldState extends State<MainScaffold> {
     _pageController = PageController();
   }
 
+  void getFiles() {
+    _files = dir.listSync(recursive: true, followLinks: false);
+    for (FileSystemEntity entity in _files) {
+      String path = entity.path;
+      if (path.endsWith('.mp3')) _songs.add(entity);
+    }
+    // _songs.forEach((song) {
+    //   print("LIST of SONGS: $song");
+    // });
+    print(_songs.length);
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -29,8 +49,9 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    getFiles();
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.deepOrange,
         leading: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
         title: Text(appBarTitle),
@@ -57,9 +78,8 @@ class _MainScaffoldState extends State<MainScaffold> {
             PlayerHome(),
             NowPlaying(),
             PlaylistPage(),
-            Container(
-              color: Colors.blue,
-            ),
+            CounterPage(),
+            //Container(color: Colors.red,)
           ],
         ),
       ),

@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'dart:io';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:player/screens/player_backdrop.dart';
-
+import 'package:player/service/audio_service.dart';
 
 class NowPlaying extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class NowPlaying extends StatefulWidget {
 
 class _NowPlayingState extends State<NowPlaying> {
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+
+  final AppAudioService audioService = AppAudioService();
 
   final player = AudioPlayer();
   bool isPlaying = false;
@@ -25,8 +28,8 @@ class _NowPlayingState extends State<NowPlaying> {
   int track = 0;
   @override
   void initState() {
-    super.initState();
     getArtist();
+    super.initState();
   }
 
   void getArtist() async {
@@ -58,6 +61,7 @@ class _NowPlayingState extends State<NowPlaying> {
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
+    audioService.subs();
     return Scaffold(
       // bottomNavigationBar: BottomNavigationBar(
       //   backgroundColor: kPrimaryColor,
@@ -90,11 +94,27 @@ class _NowPlayingState extends State<NowPlaying> {
       //   ],
       // ),
       body: SafeArea(
-        child: PlayerWithBackdrop(
-          artistName: "Pritam, KK",
-          isPlaying: true,
-          currentSongName: "Aur Tanha",
-        ),
+        child: FutureBuilder(
+            future: audioQuery.getSongs(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                songLists = snapshot.data;
+                List<Audio> audios = [];
+
+                songLists.forEach(
+                    (element) => audios.add(Audio.file(element.filePath)));
+                return PlayerWithBackdrop(
+                  artistName: "Pritam, KK",
+                  isPlaying: true,
+                  currentSongName: songLists[0].displayName,
+                  playPress: () {
+                    audioService.openAudio(audios);
+                  },
+                );
+              } else {
+                return CircularProgressIndicator();
+              }
+            }),
         // child: Container(
         //   child: Stack(children: [
         //     Align(
@@ -284,4 +304,3 @@ _showSliderDialog({
     ),
   );
 }
-

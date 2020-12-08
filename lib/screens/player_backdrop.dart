@@ -38,7 +38,7 @@ class _PlayerWithBackdropState extends State<PlayerWithBackdrop> {
       frontLayer: PlayerScreen(),
       backLayer: ShowSongList(),
       frontHeader: MiniPlayer(
-        playPress: () {},
+        playPress: widget.playPress,
         onPress: () {},
         artistName: widget.artistName,
         albumName: "album Name",

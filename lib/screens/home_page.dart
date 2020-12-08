@@ -9,6 +9,7 @@ import 'package:player/utils/constants.dart';
 import 'package:player/screens/album_details.dart';
 import 'package:player/widgets/album_card.dart';
 import 'package:player/widgets/mini_player.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class PlayerHome extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class PlayerHome extends StatefulWidget {
 
 class _PlayerHomeState extends State<PlayerHome> {
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+
+  final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
 
   final player = AudioPlayer();
   bool isPlaying = false;
@@ -117,10 +120,30 @@ class _PlayerHomeState extends State<PlayerHome> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Text('Featured'),
-                      Text('Featured'),
-                      Text('Featured'),
-                      Text('Featured')
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Text('Favourite')),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Text('Albums')),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Text('Songs')),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                            padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Text('Geners')),
+                      ),
                     ],
                   ),
                 ),
@@ -148,7 +171,11 @@ class _PlayerHomeState extends State<PlayerHome> {
                                 onPress: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return AlbumDetails(albumArt: albumLists[index].albumArt, albumName: albumLists[index].title, albumId: int.parse(albumLists[index].id));
+                                    return AlbumDetails(
+                                        albumArt: albumLists[index].albumArt,
+                                        albumName: albumLists[index].title,
+                                        albumId:
+                                            int.parse(albumLists[index].id));
                                   }));
                                 },
                               );
@@ -183,14 +210,15 @@ class _PlayerHomeState extends State<PlayerHome> {
                   if (snapshot.hasData) {
                     return MiniPlayer(
                         playPress: () async {
-                          if (player.playerState.playing) {
-                            player.pause();
-                            isPlaying = false;
-                          } else {
-                            isPlaying = true;
-                            player.play();
-                          }
-                          await player.setFilePath(songLists[track].filePath);
+                          // if (player.playerState.playing) {
+                          //   player.pause();
+                          //   isPlaying = false;
+                          // } else {
+                          //   isPlaying = true;
+                          //   player.play();
+                          // }
+                          await audioPlayer
+                              .open(Audio.file(songLists[track].filePath));
                           setState(() {
                             playCheck();
                             songName = songLists[track].displayName;

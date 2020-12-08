@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:player/screens/home_page.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:player/screens/main_scaffold.dart';
 import 'package:player/utils/generate_mat_colors.dart';
@@ -28,5 +27,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
 
 

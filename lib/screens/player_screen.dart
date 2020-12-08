@@ -1,5 +1,7 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:player/service/audio_service.dart';
 import 'package:player/widgets/player_card.dart';
 import 'package:player/widgets/song_card.dart';
 
@@ -10,6 +12,9 @@ class PlayerScreen extends StatefulWidget {
 
 class _PlayerScreenState extends State<PlayerScreen> {
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+
+  final AppAudioService audioService = AppAudioService();
+  final AssetsAudioPlayer player = AssetsAudioPlayer();
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +50,39 @@ class _PlayerScreenState extends State<PlayerScreen> {
               ),
             ),
           ),
-          PlayerCard(
-            albumName: "Love Aj Kal",
-            artistName: "Pritam, KK",
-            currentSongName: "Aur Tanha - Love Aj Kal",
-            nextCallbackTap: () {},
-            playCallbackTap: () {},
-            prevCallbackTap: () {},
-            forwardCallbackTap: (){},
-            rewindCallbackTap: (){},
-            albumCallbackTap: (){},
-            loopCallbackTap: (){},
-
-            isPlaying: true,
+          FutureBuilder(
+            future: audioQuery.getSongs(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                return CircularProgressIndicator();
+              }
+              List<SongInfo> data = snapshot.data;
+              return PlayerCard(
+                albumName: "Love Aj Kal",
+                artistName: "Pritam, KK",
+                currentSongName: "Aur Tanha - Love Aj Kal",
+                nextCallbackTap: () {
+                  print("I dont know whats happending");
+                  audioService.playNext();
+                },
+                playCallbackTap: () async {
+                  List<Audio> audios = [];
+                  data.forEach(
+                      (element) => audios.add(Audio.file(element.filePath)));
+                  audioService.openAudio(audios);
+                },
+                prevCallbackTap: () {
+                  audioService.playPrev();
+                },
+                forwardCallbackTap: () {
+                  audioService.audioForwardBy();
+                },
+                rewindCallbackTap: () {},
+                albumCallbackTap: () {},
+                loopCallbackTap: () {},
+                isPlaying: true,
+              );
+            },
           ),
         ],
       ),
