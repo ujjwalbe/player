@@ -34,6 +34,8 @@ dependencies:
   audio_service: ^0.15.3
   rxdart: ^0.24.1
   bottom_navy_bar: ^5.6.0
+  flutter_bloc: 
+  bloc:
   assets_audio_player: ^2.0.13+1
 
 

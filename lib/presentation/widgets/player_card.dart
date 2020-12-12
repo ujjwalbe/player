@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:player/screens/now_playing.dart';
+import 'package:player/presentation/screens/now_playing.dart';
 import 'package:player/utils/constants.dart';
 import 'gesture_icon_button.dart';
 

@@ -1,9 +1,11 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:player/service/audio_service.dart';
-import 'package:player/widgets/player_card.dart';
-import 'package:player/widgets/song_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:player/logic/cubit/audioplayers_cubit.dart';
+import 'package:player/logic/service/audio_service.dart';
+import 'package:player/presentation/widgets/player_card.dart';
+import 'package:player/presentation/widgets/song_card.dart';
 
 class PlayerScreen extends StatefulWidget {
   @override
@@ -69,7 +71,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   List<Audio> audios = [];
                   data.forEach(
                       (element) => audios.add(Audio.file(element.filePath)));
-                  audioService.openAudio(audios);
+                  // audioService.openAudio(audios);
+                  BlocProvider.of<AudioplayersCubit>(context).player.open(Playlist(audios: audios));
                 },
                 prevCallbackTap: () {
                   audioService.playPrev();

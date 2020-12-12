@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:player/screens/stream_ex.dart';
+import 'package:player/presentation/screens/home_page.dart';
+import 'package:player/presentation/screens/now_playing.dart';
+import 'package:player/presentation/screens/playlist_page.dart';
+import 'package:player/presentation/screens/stream_ex.dart';
 import 'package:player/utils/constants.dart';
-import 'package:player/screens/home_page.dart';
-import 'package:player/screens/now_playing.dart';
-import 'package:player/screens/playlist_page.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';

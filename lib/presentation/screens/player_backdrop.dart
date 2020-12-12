@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:player/widgets/backdrop.dart';
+import 'package:player/presentation/screens/player_screen.dart';
+import 'package:player/presentation/screens/song_list.dart';
+import 'package:player/presentation/widgets/backdrop.dart';
+import 'package:player/presentation/widgets/front_panel_toolbar.dart';
+import 'package:player/presentation/widgets/mini_player.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:player/utils/constants.dart';
-import 'package:player/screens/player_screen.dart';
-import 'package:player/screens/song_list.dart';
-import 'package:player/widgets/backdrop.dart';
-import 'package:player/widgets/front_panel_toolbar.dart';
-import 'package:player/widgets/mini_player.dart';
-import 'package:player/widgets/song_card.dart';
 
 class PlayerWithBackdrop extends StatefulWidget {
   final SongInfo currentSongInfo;

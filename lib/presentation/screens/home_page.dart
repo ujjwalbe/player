@@ -5,11 +5,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:player/presentation/widgets/album_card.dart';
+import 'package:player/presentation/widgets/mini_player.dart';
 import 'package:player/utils/constants.dart';
-import 'package:player/screens/album_details.dart';
-import 'package:player/widgets/album_card.dart';
-import 'package:player/widgets/mini_player.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+
+import 'album_details.dart';
 
 class PlayerHome extends StatefulWidget {
   @override

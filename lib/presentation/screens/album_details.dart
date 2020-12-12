@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:player/presentation/widgets/mini_player.dart';
 import 'dart:io';
 
-import 'package:player/widgets/mini_player.dart';
 
 class AlbumDetails extends StatefulWidget {
   final String albumArt;

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:player/screens/player_backdrop.dart';
-import 'package:player/service/audio_service.dart';
+import 'package:player/logic/service/audio_service.dart';
+import 'package:player/presentation/screens/player_backdrop.dart';
 
 class NowPlaying extends StatefulWidget {
   @override
